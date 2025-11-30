@@ -1,0 +1,69 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# PHP Endpoints
+[[redirects]]
+  from = "/ranking.php"
+  to = "/.netlify/functions/http?__PREFIX=ranking.php"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/bookmark_add.php"
+  to = "/.netlify/functions/http?__PREFIX=bookmark_add.php"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/rpc_group_setting.php"
+  to = "/.netlify/functions/http?__PREFIX=rpc_group_setting.php"
+  status = 200
+  force = true
+
+# Ajax & RPC
+[[redirects]]
+  from = "/ajax/*"
+  to = "/.netlify/functions/http?__PREFIX=ajax&__PATH=:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/rpc/*"
+  to = "/.netlify/functions/http?__PREFIX=rpc&__PATH=:splat"
+  status = 200
+  force = true
+
+# Images
+[[redirects]]
+  from = "/-/*"
+  to = "/.netlify/functions/image?__PREFIX=-&__PATH=:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/~/*"
+  to = "/.netlify/functions/image?__PREFIX=~&__PATH=:splat"
+  status = 200
+  force = true
+
+# Random
+[[redirects]]
+  from = "/api/illust/random"
+  to = "/.netlify/functions/random"
+  status = 200
+  force = true
+
+# User API
+[[redirects]]
+  from = "/api/user"
+  to = "/.netlify/functions/user"
+  status = 200
+  force = true
+
+# SPA Fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
