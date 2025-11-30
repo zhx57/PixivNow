@@ -52,11 +52,17 @@ export default async (req: Request) => {
   try {
     const response = await fetch(targetUrl.toString(), init);
     
+    // Create new headers from response headers to avoid immutability issues
+    const newHeaders = new Headers(response.headers);
+    // Add caching headers
+    newHeaders.set("Cache-Control", "public, max-age=31536000, immutable");
+    newHeaders.set("CDN-Cache-Control", "public, max-age=31536000, immutable");
+
     // Return response directly
     return new Response(response.body, {
       status: response.status,
       statusText: response.statusText,
-      headers: response.headers,
+      headers: newHeaders,
     });
   } catch (error) {
     console.error("Image proxy error:", error);
